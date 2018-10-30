@@ -52,7 +52,7 @@ export class BuildTrigger extends ServiceObject {
 
     super({
       parent: gcb,
-      baseUrl: '',
+      baseUrl: `projects/${gcb.projectId}/triggers`,
       id,
       createMethod: gcb.createBuildTrigger.bind(gcb),
       methods,
@@ -74,7 +74,7 @@ export class BuildTrigger extends ServiceObject {
    * @param {BuildTriggerCallback} [callback] Callback function.
    * @returns {Promise<Operation>}
    */
-  delete(options, callback?) {
+  delete(options?, callback?) {
     if (is.fn(options)) {
       callback = options;
       options = {};
@@ -85,8 +85,16 @@ export class BuildTrigger extends ServiceObject {
           method: 'DELETE',
           uri: '',
           qs: options,
-        },
-        callback || util.noop);
+        }, (err, resp) => {
+          if (err) {
+            callback!(err, resp);
+            console.log(err);
+            return;
+          }
+          console.log(resp);
+          callback!(null, resp) || util.noop
+        });
+      
   }
 
   /**
@@ -99,7 +107,7 @@ export class BuildTrigger extends ServiceObject {
    * @returns {Promise<BuildTrigger>}
    *
    */
-  get(options, callback?) {
+  get(options?, callback?) {
     if (is.fn(options)) {
       callback = options;
       options = {};
@@ -132,7 +140,7 @@ export class BuildTrigger extends ServiceObject {
    * @returns {Promise<boolean>}
    *
    */
-  exists(options, callback?) {
+  exists(options?, callback?) {
     if (is.fn(options)) {
       callback = options;
       options = {};
@@ -156,7 +164,7 @@ export class BuildTrigger extends ServiceObject {
   }
 
   // @TODO
-  patch(options, callback?) {
+  patch(options?, callback?) {
     if (is.fn(options)) {
       callback = options;
       options = {};
@@ -172,7 +180,7 @@ export class BuildTrigger extends ServiceObject {
   }
 
   // @TODO
-  run(options, callback?) {
+  run(options?, callback?) {
     if (is.fn(options)) {
       callback = options;
       options = {};

@@ -30,11 +30,11 @@ const gcb = new GCB({
 
 // getBuildTriggers();
 
-// // Create a new Build Trigger
+// Create a new Build Trigger
 const createBuildTrigger = async(): Promise<BuildTrigger>  => {
   try {
     const buildTriggerConfig: BuildTriggerConfig = {
-      description: 'wi_project_testing_three', // WIproject
+      description: 'testToDelete2', // WIproject
       triggerTemplate: { 
         projectId: 'cameratraprepo',
         repoName: 'check-object',
@@ -48,7 +48,7 @@ const createBuildTrigger = async(): Promise<BuildTrigger>  => {
       filename: 'cloudbuild-steps.yaml'
     }
     const bt: BuildTrigger = await (gcb.createBuildTrigger(buildTriggerConfig) as Promise<[BuildTrigger, any]>).then(value => value[0]);
-    console.log(bt);
+    console.log(bt.id);
     return bt;
   } catch (err) {
     console.error(err);
@@ -57,4 +57,8 @@ const createBuildTrigger = async(): Promise<BuildTrigger>  => {
 };
 
 createBuildTrigger();
+
+// const t = gcb.buildTrigger('4aae73fd-f53b-4e02-a2ab-7ae9b770f6f0');
+// // console.log(t);
+// t.delete();
 
