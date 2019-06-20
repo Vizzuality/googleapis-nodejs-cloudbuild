@@ -180,7 +180,7 @@ export class BuildTrigger extends ServiceObject {
 
     this.request(
         {
-          method: 'PATCH',
+          method: 'POST',
           uri: ':run',
           qs: options,
         },
