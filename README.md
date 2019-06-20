@@ -44,19 +44,19 @@
 ```javascript
 
 // Imports the Google Cloud client library
-const { GCF } = require('googleapis-nodejs-cloudbuild');
+const { GCB } = require('googleapis-nodejs-cloudbuild');
 
 // Your Google Cloud Platform project ID
 const projectId = 'YOUR_PROJECT_ID';
 
 // Creates a client
-const gcf = new GCF({
+const gcb = new GCB({
   keyFilename: './credentials.json',
   projectId
 });
 
 // Get Triggers and metadata
-gcf
+gcb
   .getCloudBuildTriggers()
   .then(data => {
     const fns = data[0];
