@@ -171,18 +171,29 @@ export class BuildTrigger extends ServiceObject {
         callback || util.noop);
   }
 
-  // @TODO
-  run(options, callback?) {
-    if (is.fn(options)) {
+  /**
+   * Run a build trigger
+   *
+   * @param {object} [options] Configuration options.
+   * @param {object} [body] Json body for the post request
+   * @param {any} [callback] Callback function.
+   * @returns {Promise<any>}
+   *
+   */
+  run(options, body?, callback?) {
+    if (!callback && body && is.fn(body)) {
+      callback = body;
+    } else if (is.fn(options)) {
       callback = options;
       options = {};
     }
 
     this.request(
         {
-          method: 'PATCH',
+          method: 'POST',
           uri: ':run',
           qs: options,
+          json: body,
         },
         callback || util.noop);
   }
